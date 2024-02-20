@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+		<meta charset="utf-8" />
+		<title>Builder One Piece TCG Database</title>
+		<meta name="author" content="Bibi Watson" />
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.css">
+		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+		
+		<script src="https://unpkg.com/default-passive-events@2.0.0/dist/index.umd.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/css.css">
+		<link rel="stylesheet" href="../css/btn.css">
+		<link rel="stylesheet" href="../css/builder.css">
+
+		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.js"></script>
+
+		<script src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+		<script src="./scripts/elements.js"></script>
+		<script src="./scripts/DeckClass.js"></script>
+		<script src="./scripts/CardClass.js"></script>
+		<script src="./scripts/DeckCardClass.js"></script>
+
+		<script src="./scripts/search.js"></script>
+		<script src="./scripts/deckbuilder.js"></script>
+		<script src="./scripts/buildercharts.js"></script>
+		<script src="./scripts/builderstart.js"></script>
+		<script src="./scripts/shuffle.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+	<section class="hero-banner">
+		<div class="container-fluid hero-banner-container">
+			<div class="row row align-items-center">
+				<div class="col-lg-12">
+					<img src="https://cdn.glitch.global/85dfe08d-2d2f-40f2-a0f9-e3ae1044999e/One_piece.png"
+						class="img-fluid" width="115">
+					<span class="hero-banner-span hero-banner-span-op">ONE PIECE TCG DB</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<nav class="navbar navbar-dark bg-dark navbar-site-primary">
+		<ul class="nav">
+			<li class="nav-item">
+			  <a class="nav-link text-muted" href="/">Card List</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link active" href="/builder">Deck Builder</a>
+			</li>
+		  </ul>
+		</nav>
+	</section>
+
+	<div class="container-fluid">
+		<div class="row parent">
+			<div class="col-lg-4 col-md-6 div_filters sticky-top div-d-left" style="background-color:#eeeeee;">
+				<div class="row sticky-top" style="background-color:#eeeeee;">
+					<div class="col-md-12 sticky-top">
+						<nav class="navbar navbar-light navbar-filters smart-scroll">
+
+							<a class="navbar-brand navbar-filter" href="#">Filters</a>
+
+							<button class="navbar-toggler first-button" type="button" data-toggle="collapse"
+								data-target="#filtersContent" aria-controls="filtersContent" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<div class="animated-icon1"><i class="fa fa-bars fa-4x" aria-hidden="true"></i></div>
+							</button>
+
+							<div class="collapse navbar-collapse show navbar-fixed-top" id="filtersContent">
+								<div class="row">
+									<div class="col-md-12 form-group">
+										<select name="set_id" class="form-control input-search" id="select_set">
+											<option value="0" selected="selected">Select an option</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12 form-group ">
+										<input type="text" class="form-control input-search"
+											placeholder="Card Name, Effect, Trigger" id="text-search">
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-4">
+										<h5 class="label-input-filter"><span class="fw-semi-bold">Cost</span></h5>
+										<input type="text" class="form-control input-search" placeholder="Cost" id="cost_search">
+									</div>
+
+									<div class="col-md-4">
+										<h5 class="label-input-filter"><span class="fw-semi-bold">Category</span></h5>
+										<div class="label ui selection fluid dropdown multiple" tabindex="0">
+											<select name="type_filter" multiple="" class="form-control input-search">
+												<option value="Character">Character</option>
+												<option value="Event">Event</option>
+												<option value="Leader">Leader</option>
+												<option value="Stage">Stage</option>
+											</select>
+											<i class="dropdown icon"></i>
+											<div class="default text">All</div>
+											<div class="menu menu_type_filter" tabindex="-1">
+												<div class="item" data-value="Character">Character</div>
+												<div class="item" data-value="Event">Event</div>
+												<div class="item" data-value="Leader">Leader</div>
+												<div class="item" data-value="Stage">Stage</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+										<h5 class="label-input-filter"><span class="fw-semi-bold">Color</span></h5>
+
+										<div class="label ui selection fluid dropdown multiple" tabindex="0">
+											<select name="color_filter" multiple="">
+												<option value="Black">Black</option>
+												<option value="Blue">Blue</option>
+												<option value="Green">Green</option>
+												<option value="Red">Red</option>
+												<option value="Purple">Purple</option>
+												<option value="Yellow">Yellow</option>
+											</select>
+											<i class="dropdown icon"></i>
+											<div class="default text">All</div>
+											<div class="menu" tabindex="-1">
+												<div class="item" data-value="Black">Black</div>
+												<div class="item" data-value="Blue">Blue</div>
+												<div class="item" data-value="Green">Green</div>
+												<div class="item" data-value="Red">Red</div>
+												<div class="item" data-value="Purple">Purple</div>
+												<div class="item" data-value="Yellow">Yellow</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-4">
+										<h5 class="label-input-filter"><span class="fw-semi-bold">Attribute</span></h5>
+
+										<div class="label ui selection fluid dropdown multiple" tabindex="0">
+											<select name="attr_filter" multiple="">
+												<option value="Ranged">Ranged</option>
+												<option value="Slash">Slash</option>
+												<option value="Special">Special</option>
+												<option value="Strike">Strike</option>
+												<option value="Wisdom">Wisdom</option>
+											</select>
+											<i class="dropdown icon"></i>
+											<div class="default text">All</div>
+											<div class="menu" tabindex="-1">
+												<div class="item" data-value="Ranged">Ranged</div>
+												<div class="item" data-value="Slash">Slash</div>
+												<div class="item" data-value="Special">Special</div>
+												<div class="item" data-value="Strike">Strike</div>
+												<div class="item" data-value="Wisdom">Wisdom</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+										<h5 class="label-input-filter"><span class="fw-semi-bold">Type</span></h5>
+
+										<div class="label ui selection fluid dropdown multiple" tabindex="0">
+											<select name="card_type_filter" id="select_card_types" multiple=""></select>
+											<i class="dropdown icon"></i>
+											<div class="default text">All</div>
+											<div class="menu card_type_filter" id="menu_card_types" tabindex="-1"></div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+										<h5 class="label-input-filter"><span class="fw-semi-bold">Counter</span></h5>
+
+										<div class="label ui selection fluid dropdown multiple input-search"
+											tabindex="0">
+											<select name="card_type_counter" id="select_counter" multiple="">
+												<option value="-">No counter</option>
+												<option value="1000">1000</option>
+												<option value="2000">2000</option>
+											</select>
+											<i class="dropdown icon"></i>
+											<div class="default text">All</div>
+											<div class="menu card_type_filter" id="menu_counter" tabindex="-1">
+												<div class="item" data-value="-">No counter</div>
+												<div class="item" data-value="1000">1000</div>
+												<div class="item" data-value="2000">2000</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="row" style="text-align:center;">
+									<div class="col-md-12"
+										style="text-align:center;float:none;margin:0 auto;padding-top:10px">
+										<span class="input-group-btn">
+											<button class="btn btn-primary btn-search-all" style="width:100%;"
+												id="button-search" type="button">
+												<i class="fa fa-search"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+
+							</div>
+
+						</nav>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<span class="search-results-count" style="float:left;">
+							<p class="search-results-count" id="results-count"></p>
+							<div class="spinner-border spinner-results" role="status">
+								<span class="sr-only">Loading...</span>
+							</div>
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<span class="search-results-count not-results-found"
+							style="width:100%;text-align:center;"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div id="cards_results">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-8 col-md-6 div_results sticky-top div-d-right" style="float:left;">
+				<div class="deck-holder sticky-top">
+
+					<div class="row sticky-top" style="background-color:#dedede;">
+						<div class="w-100" style="padding:10px;">
+							<h4>Deck Builder</h4>
+						</div>
+
+						<div class="ui top attached tabular menu deck-builder-tabs sticky-top">
+							<a class="item active" data-tab="first">Builder</a>
+							<a class="item" data-tab="second">Statistics</a>
+							<a class="item" data-tab="third">Sample Hand</a>
+						</div>
+					</div>
+
+					<div class="row" style="min-height: 800px;">
+
+						<div class="ui bottom attached tab segment active" data-tab="first" style="border-top:none;">
+							<!-- tab top menu -->
+							<div class="col-lg-12">
+								<div class="row">
+									<div class="col-lg-2 col-md-12 col-counter-top" style="align-self: center;">
+										<i class="bi bi-person-badge-fill deck-holder-header-icon text-muted"></i>
+										<h6 class="card-amount-holder text-muted" style="display: inline-block;">Cards : 0</h6>
+									</div>
+									<div class="col-lg-2 col-md-12 col-counter-top" style="align-self: center;">
+										<i class="bi bi-lightning-fill deck-holder-header-icon text-muted" ></i>
+										<h6 style="display: inline-block;" class="trigger-amount-holder text-muted">Triggers : 0</h6>
+									</div>
+									<div class="col-lg-5 col-md-12"></div>
+									<div class="col-lg-3 col-md-12 div-btn-holder">
+										<div class="ui icon buttons buttons-actions-holder">
+											<button class="ui button btn-export-deck">
+												<i class="download icon"></i> Export
+											</button>
+											<button type="button" class="ui button btn-empty-deck">
+												<i class="trash icon"></i> Empty Deck
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-12 text-muted-holder-">
+										<div class="ui inverted divider"></div>
+									</div>
+								</div>
+							</div>
+							<!-- tab top menu -->
+
+							<div class="row">
+								<div class="col-lg-12 text-muted-holder-">
+									<div id="div-deck-cards" class="deck-cards w-100">
+										<div class="col-leader-holder">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+
+						<div class="ui bottom attached tab segment" data-tab="second">
+							<!-- tab top menu -->
+							<div class="col-lg-12">
+								<div class="row">
+									<div class="col-lg-2 col-md-12 col-counter-top" style="align-self: center;">
+										<i class="bi bi-person-badge-fill deck-holder-header-icon text-muted"></i>
+										<h6 class="card-amount-holder text-muted" style="display: inline-block;">Cards : 0</h6>
+									</div>
+									<div class="col-lg-2 col-md-12 col-counter-top" style="align-self: center;">
+										<i class="bi bi-lightning-fill deck-holder-header-icon text-muted" ></i>
+										<h6 style="display: inline-block;" class="trigger-amount-holder text-muted">Triggers : 0</h6>
+									</div>
+									<div class="col-lg-5 col-md-12"></div>
+									<div class="col-lg-3 col-md-12 div-btn-holder">
+										<div class="ui icon buttons buttons-actions-holder">
+											<button class="ui button btn-export-deck">
+												<i class="download icon"></i> Export
+											</button>
+											<button type="button" class="ui button btn-empty-deck">
+												<i class="trash icon"></i> Empty Deck
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-12 text-muted-holder-">
+										<div class="ui inverted divider"></div>
+									</div>
+								</div>
+							</div>
+							<!-- tab top menu -->
+
+							<div class="row">
+								<div class="col-lg-6 col-md-12">
+									<canvas id="div-cost-chart"></canvas>
+								</div>
+								<div class="col-lg-6 col-md-12">
+									<canvas id="div-power-chart"></canvas>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-6 col-md-12">
+									<canvas id="div-counter-chart"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="ui bottom attached tab segment" data-tab="third">
+							<!-- tab top menu -->
+							<div class="col-lg-12">
+								<div class="row">
+									<div class="col-lg-2 col-md-12 col-counter-top" style="align-self: center;">
+										<i class="bi bi-person-badge-fill deck-holder-header-icon text-muted"></i>
+										<h6 class="card-amount-holder text-muted" style="display: inline-block;">Cards : 0</h6>
+									</div>
+									<div class="col-lg-2 col-md-12 col-counter-top" style="align-self: center;">
+										<i class="bi bi-lightning-fill deck-holder-header-icon text-muted" ></i>
+										<h6 style="display: inline-block;" class="trigger-amount-holder text-muted">Triggers : 0</h6>
+									</div>
+									<div class="col-lg-5 col-md-12"></div>
+									<div class="col-lg-3 col-md-12 div-btn-holder">
+										<div class="ui icon buttons buttons-actions-holder">
+											<button class="ui button btn-shuffle-deck">
+												<i class="random icon"></i> Sample Hand
+											</button>
+											<button type="button" class="ui button btn-empty-deck">
+												<i class="trash icon"></i> Empty Deck
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-12 text-muted-holder-">
+										<div class="ui inverted divider"></div>
+									</div>
+								</div>
+							</div>
+							<!-- tab top menu -->
+
+							<div class="col-lg-12">
+								<div class="row">
+									<div class="col-lg-1 col-md-12"></div>
+									<div class="col-lg-2 col-md-12">
+										<div class="image-wrap-builder shuffle-1">
+
+										</div>
+									</div>
+									<div class="col-lg-2 col-md-12">
+										<div class="image-wrap-builder shuffle-2">
+
+										</div>
+									</div>
+									<div class="col-lg-2 col-md-12">
+										<div class="image-wrap-builder shuffle-3">
+
+										</div>
+									</div>
+									<div class="col-lg-2 col-md-12">
+										<div class="image-wrap-builder shuffle-4">
+
+										</div>
+									</div>
+									<div class="col-lg-2 col-md-12">
+										<div class="image-wrap-builder shuffle-5">
+
+										</div>
+									</div>
+									<div class="col-lg-1 col-md-12"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="ui dimmable dimmer dimmer-deck-list modals page transition hiden">
+		<div class="ui large basic modal transition modal-export-deck">
+			<div class="ui icon header">
+				<!--i class="archive icon"></i-->
+				Export Deck
+			</div>
+
+			<canvas id="modal-show-canvas" width="120" height="200" style="display: block;margin: 0 auto;"></canvas>
+
+			<div class="actions">
+				<div class="ui gray basic inverted button download-image">
+					<i class="download icon"></i>Image
+				</div>
+			
+				<div class="ui gray basic inverted button download-deck-file">
+					<i class="download icon"></i>.deck File
+				</div>
+			</div>
+			
+			<div class="content">
+				<div class="w-100 parent-div-card-list-holder" style="position: relative;">
+					<div class="row">
+						<div class="col-md-11 div-card-list-holder">
+						</div>
+						<div class="col-md-1">
+							<i class="copy big icon copy-deck-card-list show-tooltip" data-toggle="tooltip" title="Copy to clipboard" data-original-title="Copy to clipboard"></i>
+						</div>
+					</div>
+					<textarea width="1200" rows="3" class="text-area-deck-card-list disabled" disabled="true" style="margin: 0 auto;display: none;width: 90%;margin-top: 20px;background-color: #fff;"></textarea>
+				</div>
+			</div>
+			<div class="actions">
+				<div class="ui red basic cancel inverted button">
+					<i class="remove icon"></i>Close
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<canvas id="deck-export-canvas" width="120" height="200" style="display:none;"></canvas>	
+</body>
+
+</html>
